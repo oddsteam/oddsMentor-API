@@ -1,26 +1,38 @@
 version: '3.8'
 services:
 #  mentor-web:
-#    image: swr.ap-southeast-2.myhuaweicloud.com/odds-booking/web-oddsbooking:${BRANCH_NAME}
+#    image: swr.ap-southeast-2.myhuaweicloud.com/odds-mentor/web-mentor:${BRANCH_NAME}
 #    ports:
 #      - 80:80
 #    restart: always
 #    depends_on:
 #      - oddsbooking-api
+  db:
+    image: mongo
+    ports:
+      - 8088:27017
+    container_name: odds-mentor-mongo-db
+    networks:
+      - backend-networks
+      - frontend-networks
+    volumes:
+      - mongo-data:/data/db
 
   mentor-api:
     image: swr.ap-southeast-2.myhuaweicloud.com/odds-mentor/api-mentor:${BRANCH_NAME}
     ports:
       - 8087:8080
     restart: always
+    networks:
+      - backend-networks
+    depends_on:
+      - db
 
-  db:
-    image: mongo
-    ports:
-      - 8088:27017
-    container_name: odds-mentor-mongo-db
-    volumes:
-      - mongo-data:/data/db
+networks:
+  backend-networks:
+    driver: bridge
+  frontend-networks:
+    driver: bridge
 
 volumes:
   mongo-data:
