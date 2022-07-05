@@ -11,7 +11,7 @@ services:
       - mongo-data:/data/db
 
   mentor-api:
-    image: swr.ap-southeast-2.myhuaweicloud.com/odds-mentor/api-mentor:${BRANCH_NAME}
+    image: swr.ap-southeast-2.myhuaweicloud.com/odds-mentor/api-mentor:dev
     ports:
       - 8087:8080
     restart: always
@@ -22,7 +22,7 @@ services:
       - db
 
   mentor-web:
-    image: swr.ap-southeast-2.myhuaweicloud.com/odds-mentor/web-mentor:${BRANCH_NAME}
+    image: swr.ap-southeast-2.myhuaweicloud.com/odds-mentor/web-mentor:dev
     ports:
       - 80:80
     restart: always
