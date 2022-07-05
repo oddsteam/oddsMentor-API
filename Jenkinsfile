@@ -36,7 +36,6 @@ pipeline{
                            chmod +x ./Mentor/deploy-script.sh
                            REGISTRY=${REGISTRY} \
                            BRANCH_NAME=${BRANCH_NAME} \
-                           SENDINBLUE_TOKEN_JENKINS=${SENDINBLUE_TOKEN} \
                            ./Mentor/deploy-script.sh
                        \"
                     """
