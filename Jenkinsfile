@@ -3,7 +3,7 @@ pipeline{
     agent any
     //
     environment{
-        ORGANIZATION = "odds-mentor"
+        ORGANIZATION = "odds-booking"
         REGISTRY = "swr.ap-southeast-2.myhuaweicloud.com"
         TAG = "api-mentor:${BRANCH_NAME}"
         API_BUILD_TAG = "${REGISTRY}/${ORGANIZATION}/${TAG}"
