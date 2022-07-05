@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+#  mentor-web:
+#    image: swr.ap-southeast-2.myhuaweicloud.com/odds-booking/web-oddsbooking:${BRANCH_NAME}
+#    ports:
+#      - 80:80
+#    restart: always
+#    depends_on:
+#      - oddsbooking-api
+  mentor-api:
+    image: swr.ap-southeast-2.myhuaweicloud.com/odds-mentor/api-mentor:${BRANCH_NAME}
+    ports:
+      - 8087:8080
+    restart: always
+
+      
+
