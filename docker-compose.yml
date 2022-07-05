@@ -14,7 +14,6 @@ services:
     container_name: odds-mentor-mongo-db
     networks:
       - backend-networks
-      - frontend-networks
     volumes:
       - mongo-data:/data/db
 
