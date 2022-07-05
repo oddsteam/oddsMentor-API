@@ -7,11 +7,24 @@ services:
 #    restart: always
 #    depends_on:
 #      - oddsbooking-api
+
   mentor-api:
     image: swr.ap-southeast-2.myhuaweicloud.com/odds-mentor/api-mentor:${BRANCH_NAME}
     ports:
       - 8087:8080
     restart: always
+
+  db:
+    image: mongo
+    ports:
+      - 8088:27017
+    container_name: odds-mentor-mongo-db
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
+    driver: local
 
       
 
