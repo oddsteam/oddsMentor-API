@@ -31,6 +31,8 @@ services:
       - odds-mentor-mongo-db
     links:
       - odds-mentor-mongo-db
+    environment:
+      - MONGO_HOST=${MONGO_DB}
 
   mentor-web:
     image: swr.ap-southeast-2.myhuaweicloud.com/odds-booking/web-mentor:${BRANCH_NAME}
