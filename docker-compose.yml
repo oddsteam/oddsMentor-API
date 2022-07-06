@@ -1,42 +1,57 @@
 version: '3.8'
 services:
-  db:
+  odds-mentor-mongo-db:
     image: mongo
-    ports:
-      - 8088:27017
     container_name: odds-mentor-mongo-db
+    ports:
+      - "8088:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: odd-mentor
+      MONGO_USERNAME: admin
+      MONGO_PASSWORD: password
     networks:
       - backend-networks
     volumes:
       - mongo-data:/data/db
+      - ./mongo-entrypoint.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
+    command: mongod
 
   mentor-api:
     image: swr.ap-southeast-2.myhuaweicloud.com/odds-booking/api-mentor:${BRANCH_NAME}
+    container_name: odds-mentor-api
     ports:
-      - 8087:8080
+      - "8087:8080"
     restart: always
     networks:
       - backend-networks
       - frontend-networks
     depends_on:
-      - db
+      - odds-mentor-mongo-db
+    links:
+      - odds-mentor-mongo-db
 
   mentor-web:
     image: swr.ap-southeast-2.myhuaweicloud.com/odds-booking/web-mentor:${BRANCH_NAME}
+    container_name: odds-mentor-web
     ports:
-      - 8089:80
+      - "8089:80"
     restart: always
     networks:
       - frontend-networks
     depends_on:
-      - db
+      - odds-mentor-mongo-db
       - mentor-api
 
 networks:
   backend-networks:
     driver: bridge
+    name: backend-networks
   frontend-networks:
     driver: bridge
+    name: frontend-networks
+
 
 volumes:
   mongo-data:
