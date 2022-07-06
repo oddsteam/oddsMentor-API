@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   odds-mentor-mongo-db:
-    image: mongo
+    image: mongo:4.4.15
     container_name: odds-mentor-mongo-db
     ports:
       - "8088:27017"
