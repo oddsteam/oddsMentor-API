@@ -6,15 +6,12 @@ services:
     ports:
       - "8088:27017"
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: password
-      MONGO_INITDB_DATABASE: odd-mentor
-      MONGO_USERNAME: admin
-      MONGO_PASSWORD: password
+      MONGO_INITDB_DATABASE: odds-mentor
     networks:
       - backend-networks
     volumes:
-      - mongo-data:/data/db
       - ./mongo-entrypoint.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
     command: mongod
 
@@ -40,6 +37,7 @@ services:
     environment:
       - MONGO_HOST=${MONGO_DB}
       - SPRING-RABBITMQ_HOST=rabbitmq
+      - SENDINBLUE_TOKEN=${SENDINBLUE_TOKEN}
 
   mentor-web:
     image: swr.ap-southeast-2.myhuaweicloud.com/odds-booking/web-mentor:${BRANCH_NAME}

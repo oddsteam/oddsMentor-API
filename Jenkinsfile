@@ -29,7 +29,8 @@ pipeline{
         }
         stage("deploy"){
             steps{
-                withCredentials([string(credentialsId: 'MONGO_HOST', variable: 'MONGO_HOST_JENKINS')]) {
+                withCredentials([string(credentialsId: 'SENDINBLUE_TOKEN', variable: 'SENDINBLUE_TOKEN_JENKINS'),
+                    string(credentialsId: 'MONGO_HOST', variable: 'MONGO_HOST_JENKINS')]) {
                     sh """
                        scp docker-compose.yml oddsbooking@159.138.240.167:./Mentor/docker-compose.yml
                        scp mongo-entrypoint.sh oddsbooking@159.138.240.167:./Mentor/mongo-entrypoint.sh
@@ -37,6 +38,7 @@ pipeline{
                        ssh -oStrictHostKeyChecking=no -t oddsbooking@159.138.240.167 \"
                            chmod +x ./Mentor/deploy-script.sh
                            REGISTRY=${REGISTRY} \
+                           SENDINBLUE_TOKEN=${SENDINBLUE_TOKEN_JENKINS} \
                            MONGO_DB=${MONGO_HOST_JENKINS} \
                            BRANCH_NAME=${BRANCH_NAME} \
                            ./Mentor/deploy-script.sh
