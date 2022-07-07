@@ -1,21 +1,27 @@
 package team.odds.mentor.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-import team.odds.mentor.model.User;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import team.odds.mentor.model.dto.UserResponseDto;
+import team.odds.mentor.model.dto.UserRequestDto;
 import team.odds.mentor.service.UserService;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/odds-api/v1/users")
 public class UserController {
     private final UserService userService;
 
-    @PostMapping("/users")
-    public User addUser(@RequestBody User body) {
-        return userService.addUser(body);
+    @PostMapping()
+    public ResponseEntity<UserRequestDto> addUser(@RequestBody UserRequestDto dataRequest) {
+        return ResponseEntity.ok().body(userService.addUser(dataRequest));
     }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserResponseDto> getUser(@PathVariable("userId") String userId) {
+        return ResponseEntity.ok().body(userService.getUserByUserId(userId));
+    }
+
+
 }

@@ -1,27 +1,36 @@
 package team.odds.mentor.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.List;
 
+
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@Document(collection = "booking-mentor")
+@Document(collection = "users")
 public class User {
     @Id
     private String id;
-    private String bookingPersonFullName;
-    private String bookingPersonEmail;
-    private String mentorId;
-    private String mentorFullName;
-    private String reason;
-    private Integer sessionDuration;
+    private String firstNameEN;
+    private String firstNameTH;
+    private String lastNameEN;
+    private String lastNameTH;
+    private String nickname;
+    private String email;
+    private String accountType;
+    private String biography;
+    private String team;
+    private String position;
+    private String profileImageUrl;
+    private List<String> expertise;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm", iso = DateTimeFormat.ISO.DATE_TIME)
-    private LocalDateTime sessionDate;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }
+
