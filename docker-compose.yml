@@ -15,8 +15,13 @@ services:
       - ./mongo-entrypoint.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
     command: mongod
 
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - "5673:5672"
+
   mentor-api:
-    image: swr.ap-southeast-2.myhuaweicloud.com/odds-booking/api-mentor:dev
+    image: swr.ap-southeast-2.myhuaweicloud.com/odds-booking/api-mentor:${BRANCH_NAME}
     ports:
       - "8087:8080"
     restart: always
@@ -25,6 +30,7 @@ services:
       - frontend-networks
     depends_on:
       - odds-mentor-mongo-db
+      - rabbitmq
     links:
       - odds-mentor-mongo-db
     environment:
@@ -33,7 +39,7 @@ services:
       - SENDINBLUE_TOKEN=${SENDINBLUE_TOKEN}
 
   mentor-web:
-    image: swr.ap-southeast-2.myhuaweicloud.com/odds-booking/web-mentor:dev
+    image: swr.ap-southeast-2.myhuaweicloud.com/odds-booking/web-mentor:${BRANCH_NAME}
     ports:
       - "8089:80"
     restart: always
