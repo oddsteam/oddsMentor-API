@@ -17,7 +17,7 @@ public class MailSendinblueService {
     @Value("${sendinblue.token}")
     private String sendinblueToken;
 
-    public boolean mailToUser(Booking booking) {
+    public boolean mailToUser(Booking booking, String mentorEmail) {
 
         ApiClient defaultClient = Configuration.getDefaultApiClient();
         ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("api-key");
@@ -30,13 +30,18 @@ public class MailSendinblueService {
         var sendTo = new SendSmtpEmailTo();
         sendTo.setEmail(booking.getUserEmail());
         sendTo.setName(booking.getUserFullName());
+        sendTo.setEmail(mentorEmail);
+        sender.setName(booking.getMentorFullName());
 
         var replyTo = new SendSmtpEmailReplyTo();
         replyTo.setEmail("odds.molamola@gmail.com");
         replyTo.setName("Odds Booking");
 
         var templateCtx = new Properties();
-        templateCtx.setProperty("fullNameEN", booking.getMentorFullName());
+        templateCtx.setProperty("userFullName", booking.getUserFullName());
+        templateCtx.setProperty("userEmail", booking.getUserEmail());
+        templateCtx.setProperty("mentorFullName", booking.getMentorFullName());
+        templateCtx.setProperty("mentorEmail", mentorEmail);
         templateCtx.setProperty("reason", booking.getReason());
         templateCtx.setProperty("sessionDate", booking.getSessionDate().toString());
         templateCtx.setProperty("duration", booking.getSessionDuration().toString());

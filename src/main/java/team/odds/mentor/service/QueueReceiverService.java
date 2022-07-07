@@ -3,27 +3,28 @@ package team.odds.mentor.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.messaging.MessagingException;
 import org.springframework.stereotype.Service;
 import team.odds.mentor.repository.BookingRepository;
+import team.odds.mentor.repository.UserRepository;
 
-import java.io.IOException;
 
+@Service
 @RequiredArgsConstructor
 @Slf4j
-@Service
 public class QueueReceiverService {
 
     private final BookingRepository bookingRepository;
+    private final UserRepository userRepository;
     private final MailSendinblueService mailSendinblueService;
 
     @RabbitListener(queues = "odds-mentor-message")
-    public void receiveMessage(String message) throws IOException, MessagingException {
+    public void receiveMessage(String message) {
         var bookingOpt = bookingRepository.findById(message);
-
-        if(bookingOpt.isPresent()) {
+        if (bookingOpt.isPresent()) {
             var booking = bookingOpt.get();
-            mailSendinblueService.mailToUser(booking);
+            var mentorEmail = userRepository.findByEmail(booking.getMentorId());
+            var isSuccess = mailSendinblueService.mailToUser(booking, mentorEmail);
+            log.info("isSuccess : {}", isSuccess);
         } else {
             log.warn("Booking not found : message = {}", message);
         }

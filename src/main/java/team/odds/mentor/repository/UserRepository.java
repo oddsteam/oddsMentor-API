@@ -12,4 +12,6 @@ import java.util.List;
 public interface UserRepository extends MongoRepository<User, String> {
     @Query(value = "{'_id': { $nin : [ ?0 ] }}")
     List<User> findAllExceptOne(String userId);
+
+    String findByEmail(String mentorId);
 }

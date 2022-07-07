@@ -1,12 +1,10 @@
 package team.odds.mentor.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.data.annotation.Id;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.time.LocalDateTime;
+import lombok.Data;
 import java.util.List;
 
+@Data
 public class BookingDto {
     private String userId;
     private String userFullName;

@@ -29,7 +29,6 @@ public class User {
     private String position;
     private String profileImageUrl;
     private List<String> expertise;
-
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

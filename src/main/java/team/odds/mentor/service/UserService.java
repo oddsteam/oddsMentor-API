@@ -13,7 +13,6 @@ import team.odds.mentor.repository.UserRepository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
@@ -22,6 +21,12 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final ExpertiseService expertiseService;
+
+    public UserResponseDto getUser(String userId) {
+        var userRequest = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found with this id : " + userId));
+        return toUserResponse(userRequest);
+    }
 
     public List<UserResponseDto> getAllUsers() {
         List<User> users = userRepository.findAll();
@@ -47,18 +52,9 @@ public class UserService {
         return dataRequest;
     }
 
-    public UserResponseDto getUserByUserId(String userId) {
-        Optional<User> userRequest = userRepository.findById(userId);
-        if (userRequest.isPresent()) {
-            User user = userRequest.get();
-            return toUserResponse(user);
-        }
-        return new UserResponseDto();
-    }
-
     public UserResponseDto toUserResponse(User user) {
         UserResponseDto userResponseDto = userMapper.toUserResponse(user);
-        List<ExpertiseUserResponseDto> expertises = expertiseService.getUserExpertise(user.getId() ,user.getExpertise());
+        List<ExpertiseUserResponseDto> expertises = expertiseService.getUserExpertise(user.getId(), user.getExpertise());
         userResponseDto.setExpertise(expertises);
 
         AtomicInteger totalEndorsement = new AtomicInteger();

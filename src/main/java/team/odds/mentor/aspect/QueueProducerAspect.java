@@ -22,5 +22,4 @@ public class QueueProducerAspect {
         queueProducerService.sendMessage(booking.getId());
     }
 
-
 }

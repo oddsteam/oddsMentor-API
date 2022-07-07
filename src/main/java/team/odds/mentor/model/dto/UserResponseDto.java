@@ -15,11 +15,11 @@ public class UserResponseDto {
     private String fullNameEN;
     private String fullNameTH;
     private String nickname;
-    private String accountType;
+    private String type;
     private String biography;
     private String team;
     private String position;
     private String profileImageUrl;
-    private int totalEndorsed;
-    private List<ExpertiseUserResponseDto> expertise = List.of();
+    private Integer totalEndorsed;
+    private List<ExpertiseUserResponseDto> expertise;
 }

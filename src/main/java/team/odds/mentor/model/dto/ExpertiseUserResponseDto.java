@@ -1,12 +1,12 @@
 package team.odds.mentor.model.dto;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 public class ExpertiseUserResponseDto {
     private String id;
     private String skill;
-    private int endorsed;
+    private Integer endorsed;
 }
