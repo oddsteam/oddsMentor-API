@@ -15,11 +15,6 @@ services:
       - ./mongo-entrypoint.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
     command: mongod
 
-  rabbitmq:
-    image: rabbitmq:management
-    ports:
-      - "5673:5672"
-
   mentor-api:
     image: swr.ap-southeast-2.myhuaweicloud.com/odds-booking/api-mentor:dev
     ports:
