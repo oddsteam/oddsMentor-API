@@ -9,8 +9,8 @@ import java.util.List;
 
 @Repository
 public interface ExpertiseRepository extends MongoRepository<Expertise, String> {
-    @Query(value = "{ '_id' : {'$in' : ?0 } }")
-    List<Expertise> findExpertiseBy(List<String> arrayId);
+    @Query(value = "{ 'id' : {'$in' : ?0 } }")
+    List<Expertise> findExpertiseBy(List<String> arrayValued);
 
     @Query(value = "{'skill' :  ?0 }")
     Expertise findExpertiseBySkill(String skill);

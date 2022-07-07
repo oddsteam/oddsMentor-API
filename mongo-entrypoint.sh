@@ -55,80 +55,82 @@ db.users.insert({
 
 db.createCollection("expertise")
 db.expertise.insert({
-  _id: "62c5a427b1192a6c1e8d1569",
+  _id: new new ObjectId("62c5a427b1192a6c1e8d1569"),
   skill: "TypeScript",
   "createdAt": "2022-07-07T12:55:24.614202",
   "updatedAt": "2022-07-07T12:55:24.614216"
 })
 
+
 db.expertise.insert({
-  _id: "62c6a1ccda70f308968c2a9e",
+  _id: new ObjectId("62c6a1ccda70f308968c2a9e"),
   skill: "Angular",
   "createdAt": "2022-07-07T12:55:24.614202",
   "updatedAt": "2022-07-07T12:55:24.614216"
 })
 
 db.expertise.insert({
-  _id: "62c6a24ada70f308968c2aa0",
+  _id: new ObjectId("62c6a24ada70f308968c2aa0"),
   skill: "Spring Boot",
   "createdAt": "2022-07-07T12:55:24.614202",
   "updatedAt": "2022-07-07T12:55:24.614216"
 })
 
 db.expertise.insert({
-  _id: "62c6a1ffda70f308968c2a9f",
+  _id: new ObjectId("62c6a1ffda70f308968c2a9f"),
   skill: "เด็กถือกระเป๋าพี่แอร์",
   "createdAt": "2022-07-07T12:55:24.614202",
   "updatedAt": "2022-07-07T12:55:24.614216"
 })
 
 db.expertise.insert({
-  _id: "62c5b2004743e83ab91f2a26",
+  _id: new ObjectId("62c5b2004743e83ab91f2a26"),
   skill: "JavaScript",
   "createdAt": "2022-07-07T12:55:24.614202",
   "updatedAt": "2022-07-07T12:55:24.614216"
 })
 
 db.expertise.insert({
-  _id: "62c65c85020d0f6ecbdc58a5",
+  _id: new ObjectId("62c65c85020d0f6ecbdc58a5"),
   skill: "Java",
   "createdAt": "2022-07-07T12:55:24.614202",
   "updatedAt": "2022-07-07T12:55:24.614216"
 })
 
 db.expertise.insert({
-  "_id": "62c6a3b067417941a44fc828",
+  _id: new ObjectId("62c6a3b067417941a44fc828"),
   "skill": "ux",
   "createdAt": "2022-07-07T16:13:20.122",
   "updatedAt": "2022-07-07T16:13:20.122"
 })
 
 db.expertise.insert({
-  "_id": "62c6a3b967417941a44fc829",
+  _id: new ObjectId("62c6a3b967417941a44fc829"),
   "skill": "product discovery",
   "createdAt": "2022-07-07T16:13:29.671",
   "updatedAt": "2022-07-07T16:13:29.671"
 })
 
 db.expertise.insert({
-  "_id": "62c6a3c667417941a44fc82a",
+  _id: new ObjectId("62c6a3c667417941a44fc82a"),
   "skill": "service design",
   "createdAt": "2022-07-07T16:13:42.438",
   "updatedAt": "2022-07-07T16:13:42.438"
 })
 
 db.expertise.insert({
-  "_id": "62c6a3ce67417941a44fc82b",
+  _id: new ObjectId("62c6a3ce67417941a44fc82b"),
   "skill": "design thinking",
   "createdAt": "2022-07-07T16:13:50.259",
   "updatedAt": "2022-07-07T16:13:50.259"
 })
 
 db.expertise.insert({
-  "id": "62c6a3d767417941a44fc82c",
+  _id: new ObjectId("62c6a3d767417941a44fc82c"),
   "skill": "storytelling",
   "createdAt": "2022-07-07T16:13:59.472",
   "updatedAt": "2022-07-07T16:13:59.472"
 })
+
 EOF
 
