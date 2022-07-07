@@ -18,11 +18,10 @@ services:
   rabbitmq:
     image: rabbitmq:management
     ports:
-      - 5673:5672
-      - 15673:15672
+      - "5673:5672"
 
   mentor-api:
-    image: swr.ap-southeast-2.myhuaweicloud.com/odds-booking/api-mentor:${BRANCH_NAME}
+    image: swr.ap-southeast-2.myhuaweicloud.com/odds-booking/api-mentor:dev
     ports:
       - "8087:8080"
     restart: always
@@ -40,7 +39,7 @@ services:
       - SENDINBLUE_TOKEN=${SENDINBLUE_TOKEN}
 
   mentor-web:
-    image: swr.ap-southeast-2.myhuaweicloud.com/odds-booking/web-mentor:${BRANCH_NAME}
+    image: swr.ap-southeast-2.myhuaweicloud.com/odds-booking/web-mentor:dev
     ports:
       - "8089:80"
     restart: always
