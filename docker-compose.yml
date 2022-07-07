@@ -9,8 +9,6 @@ services:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: password
       MONGO_INITDB_DATABASE: odds-mentor
-    networks:
-      - backend-networks
     volumes:
       - ./mongo-entrypoint.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
     command: mongod
@@ -22,18 +20,13 @@ services:
       - "15673:15672"
 
   mentor-api:
-    image: swr.ap-southeast-2.myhuaweicloud.com/odds-booking/api-mentor:dev
+    image: swr.ap-southeast-2.myhuaweicloud.com/odds-booking/api-mentor:${BRANCH_NAME}
     ports:
       - "8087:8080"
     restart: always
-    networks:
-      - backend-networks
-      - frontend-networks
     depends_on:
       - odds-mentor-mongo-db
       - rabbitmq
-    links:
-      - odds-mentor-mongo-db
     environment:
       - SPRING_RABBITMQ_HOST=rabbitmq
       - SPRING_PROFILES_ACTIVE=docker
@@ -42,23 +35,13 @@ services:
       - SENDINBLUE_TOKEN=${SENDINBLUE_TOKEN}
 
   mentor-web:
-    image: swr.ap-southeast-2.myhuaweicloud.com/odds-booking/web-mentor:dev
+    image: swr.ap-southeast-2.myhuaweicloud.com/odds-booking/web-mentor:${BRANCH_NAME}
     ports:
       - "8089:80"
     restart: always
-    networks:
-      - frontend-networks
     depends_on:
       - odds-mentor-mongo-db
       - mentor-api
-
-networks:
-  backend-networks:
-    driver: bridge
-    name: backend-networks
-  frontend-networks:
-    driver: bridge
-    name: frontend-networks
 
 
 volumes:

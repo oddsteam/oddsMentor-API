@@ -22,8 +22,9 @@ public class QueueReceiverService {
         var bookingOpt = bookingRepository.findById(message);
         if (bookingOpt.isPresent()) {
             var booking = bookingOpt.get();
+            log.info("Booking : {}", booking);
             var mentorEmail = userRepository.findByEmail(booking.getMentorId());
-            var isFail = mailSendinblueService.mailToUser(booking, mentorEmail.orElse("nuntapong@odds.team"));
+            var isFail = mailSendinblueService.mailToUser(booking, mentorEmail.orElse("porz@odds.team"));
             log.info("isFail : {}", isFail);
         } else {
             log.warn("Booking not found : message = {}", message);

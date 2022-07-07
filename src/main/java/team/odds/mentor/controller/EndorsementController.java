@@ -14,7 +14,6 @@ import team.odds.mentor.service.EndorsementService;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/odds-api/v1/endorsement")
-
 public class EndorsementController {
 
     private final EndorsementService endorsementService;
