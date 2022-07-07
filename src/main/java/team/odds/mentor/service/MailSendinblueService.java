@@ -14,7 +14,7 @@ import sibModel.*;
 @Service
 public class MailSendinblueService {
 
-    @Value("${seninblue.token}")
+    @Value("${sendinblue.token}")
     private String sendinblueToken;
 
     public boolean mailToUser(Booking booking) {
