@@ -23,15 +23,19 @@ public class MailSendinblueService {
         ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("api-key");
         apiKey.setApiKey(sendinblueToken);
 
-        SendSmtpEmailSender sender = new SendSmtpEmailSender();
+        var sender = new SendSmtpEmailSender();
         sender.setEmail("odds.molamola@gmail.com");
         sender.setName("Odds Mentor");
 
         var sendTo = new SendSmtpEmailTo();
         sendTo.setEmail(booking.getUserEmail());
-        sendTo.setName(booking.getUserFullName());
-        sendTo.setEmail(mentorEmail);
-        sender.setName(booking.getMentorFullName());
+        sendTo.setName("Odds Mentor");
+
+        var ccList = new ArrayList<SendSmtpEmailCc>();
+        var cc = new SendSmtpEmailCc();
+        cc.setEmail(mentorEmail);
+        cc.setName(booking.getMentorFullName());
+        ccList.add(cc);
 
         var replyTo = new SendSmtpEmailReplyTo();
         replyTo.setEmail("odds.molamola@gmail.com");
@@ -50,8 +54,9 @@ public class MailSendinblueService {
         mailCompose.sender(sender);
         mailCompose.replyTo(replyTo);
         mailCompose.to(List.of(sendTo));
+        mailCompose.setCc(ccList);
         mailCompose.setParams(templateCtx);
-        mailCompose.templateId(10L);
+        mailCompose.templateId(15L);
 
         var api = new TransactionalEmailsApi();
         var errorMessage = "";
