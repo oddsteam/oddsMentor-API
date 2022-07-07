@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import team.odds.mentor.model.Booking;
+import team.odds.mentor.model.dto.BookingDto;
 import team.odds.mentor.service.BookingService;
 
 
@@ -20,7 +21,7 @@ public class BookingController {
     private final BookingService bookingService;
 
     @PostMapping()
-    public ResponseEntity<Booking> addBooking(@RequestBody Booking dataRequest) {
+    public ResponseEntity<Booking> addBooking(@RequestBody BookingDto dataRequest) {
         return ResponseEntity.status(HttpStatus.CREATED).body(bookingService.addBooking(dataRequest));
     }
 }

@@ -19,11 +19,13 @@ public class Booking {
     private String userEmail;
     private String mentorId;
     private String mentorFullName;
+    private List<String> expertise;
     private String reason;
-    private Integer sessionDuration;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm", iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime sessionDate;
+
+    private Integer sessionDuration;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm", iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime createdAt;
@@ -31,5 +33,4 @@ public class Booking {
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm", iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime updatedAt;
 
-    private List<String> expertise;
 }
