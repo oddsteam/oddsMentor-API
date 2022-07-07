@@ -22,7 +22,7 @@ services:
       - "15673:15672"
 
   mentor-api:
-    image: swr.ap-southeast-2.myhuaweicloud.com/odds-booking/api-mentor:${BRANCH_NAME}
+    image: swr.ap-southeast-2.myhuaweicloud.com/odds-booking/api-mentor:dev
     ports:
       - "8087:8080"
     restart: always
@@ -35,12 +35,13 @@ services:
     links:
       - odds-mentor-mongo-db
     environment:
-      - MONGO_HOST=${MONGO_DB}
-      - SPRING-RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_DATA_MONGODB_URI=${MONGO_HOST}
+      - RABBIT_PORT=5672
       - SENDINBLUE_TOKEN=${SENDINBLUE_TOKEN}
 
   mentor-web:
-    image: swr.ap-southeast-2.myhuaweicloud.com/odds-booking/web-mentor:${BRANCH_NAME}
+    image: swr.ap-southeast-2.myhuaweicloud.com/odds-booking/web-mentor:dev
     ports:
       - "8089:80"
     restart: always
