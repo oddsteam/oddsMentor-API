@@ -3,7 +3,7 @@ mongo -u ${MONGO_INITDB_ROOT_USERNAME} -p ${MONGO_INITDB_ROOT_PASSWORD} <<EOF
 use ${MONGO_INITDB_DATABASE}
 db.createCollection("users")
 db.users.insert({
-  _id: new ObjectId("62c70dedf9c68f9f4d00cf40");
+  _id: new ObjectId("62c70dedf9c68f9f4d00cf40"),
   "firstNameEN": "Chandara",
   "lastNameEN": "Sin",
   "firstNameTH": "จันทร์ดารา",
@@ -21,7 +21,7 @@ db.users.insert({
 })
 
 db.users.insert({
-  _id: new ObjectId("62c70dedf9c68f9f4d00cf42");
+  _id: new ObjectId("62c70dedf9c68f9f4d00cf42"),
   "firstNameEN": "Watcharapol",
   "lastNameEN": "Sanitwong",
   "firstNameTH": "วัชรพล",
@@ -39,7 +39,7 @@ db.users.insert({
 })
 
 db.users.insert({
-  _id: new ObjectId("62c70dedf9c68f9f4d00cf41");
+  _id: new ObjectId("62c70dedf9c68f9f4d00cf41"),
   "firstNameEN": "Paramate",
   "lastNameEN": "Sarttarasupap",
   "firstNameTH": "ปรเมศวร์",
