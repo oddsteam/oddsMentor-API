@@ -20,15 +20,18 @@ public class QueueReceiverService {
     @RabbitListener(queues = "odds-mentor-message")
     public void receiveMessage(String message) {
         var bookingOpt = bookingRepository.findById(message);
-        if (bookingOpt.isPresent()) {
-            var booking = bookingOpt.get();
-            log.info("Booking : {}", booking);
-            var mentorEmail = userRepository.findByEmail(booking.getMentorId());
-            var isFail = mailSendinblueService.mailToUser(booking, mentorEmail.orElse("porz@odds.team"));
-            log.info("isFail : {}", isFail);
-        } else {
+        if (bookingOpt.isEmpty()) {
             log.warn("Booking not found : message = {}", message);
+            return;
         }
+        var booking = bookingOpt.get();
+        var mentor = userRepository.findById(booking.getMentorId());
+        if (mentor.isEmpty()) {
+            log.warn("failed by mentorId: {}", booking.getMentorId());
+            return;
+        }
+        var isFail = mailSendinblueService.mailToUser(booking, mentor.get().getEmail());
+        log.info("sending email {} with failed status {}", mentor.get().getEmail(), isFail);
     }
 }
 
