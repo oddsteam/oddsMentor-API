@@ -3,6 +3,7 @@ package team.odds.mentor.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import team.odds.mentor.model.UserResponse;
 import team.odds.mentor.model.dto.UserResponseDto;
 import team.odds.mentor.model.dto.UserRequestDto;
 import team.odds.mentor.service.UserService;
@@ -19,7 +20,7 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<UserResponseDto> getUser(@PathVariable("userId") String userId) {
+    public ResponseEntity<UserResponse> getUser(@PathVariable("userId") String userId) {
         return ResponseEntity.ok().body(userService.getUser(userId));
     }
 
