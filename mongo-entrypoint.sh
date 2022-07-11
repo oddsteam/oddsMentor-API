@@ -14,7 +14,7 @@ db.users.insert({
   "biography": "Hello, I'm Chandara Sin. I'm a software developer. I'm currently working at Odd-e (Thailand) in Mola Mola team.",
   "team": "Molamola",
   "position": "Software Developer",
-  "profileImageUrl": "https://drive.google.com/file/d/18SM8TbikJQt-RH2LdS_MbzGGod-dXHgx/view?usp=sharing",
+  "profileImageUrl": "https://drive.google.com/uc?export=view&id=18SM8TbikJQt-RH2LdS_MbzGGod-dXHgx",
   "expertise": ["62c5a427b1192a6c1e8d1569", "62c5b2004743e83ab91f2a26", "62c65c85020d0f6ecbdc58a5"],
   "createdAt": "2022-07-07T12:55:24.614202",
   "updatedAt": "2022-07-07T12:55:24.614216"
