@@ -13,6 +13,7 @@ public class Expertise {
     @Id
     private String id;
     private String skill;
+    private String codeName;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

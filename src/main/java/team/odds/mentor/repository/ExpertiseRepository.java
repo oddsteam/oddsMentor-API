@@ -7,8 +7,10 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 import team.odds.mentor.model.Expertise;
+import team.odds.mentor.model.ExpertiseRequest;
 
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -16,7 +18,7 @@ import java.util.List;
 public class ExpertiseRepository {
     private final MongoTemplate mongoTemplate;
 
-    public List<Expertise> findExpertiseByArrayId(List<String> arrayId) {
+    public List<Expertise> findExpertiseByIdList(List<String> arrayId) {
         Query query = new Query();
         query.addCriteria(
                 Criteria.where("_id").in(arrayId)
@@ -24,19 +26,24 @@ public class ExpertiseRepository {
         return mongoTemplate.find(query, Expertise.class);
     }
 
-    public Expertise findExpertiseBySkill(String skill) {
+    public List<Expertise> findAll() {
+        return mongoTemplate.findAll(Expertise.class, "expertise");
+    }
+
+    public Expertise save(ExpertiseRequest expertise) {
+        var codeName = expertise.getSkill().replaceAll("[^\\w\\s]", "").toLowerCase();
         Query query = new Query();
         query.addCriteria(
-                Criteria.where("skill").is(skill)
+                Criteria.where("codeName").is(codeName)
         );
-        return mongoTemplate.findOne(query, Expertise.class);
-    }
-
-    public List<Expertise> findAll() {
-        return mongoTemplate.findAll(Expertise.class);
-    }
-
-    public Expertise save(Expertise expertise) {
-        return mongoTemplate.save(expertise);
+        var expertiseByCodeName = mongoTemplate.findOne(query, Expertise.class, "expertise");
+        return expertiseByCodeName == null ? mongoTemplate.save(
+                Expertise.builder()
+                        .skill(expertise.getSkill())
+                        .codeName(codeName)
+                        .createdAt(LocalDateTime.now())
+                        .updatedAt(LocalDateTime.now())
+                        .build(), "expertise")
+                : expertiseByCodeName;
     }
 }

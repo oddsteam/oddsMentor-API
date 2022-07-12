@@ -5,14 +5,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import team.odds.mentor.model.Expertise;
-import team.odds.mentor.model.dto.ExpertiseRequestDto;
+import team.odds.mentor.model.ExpertiseRequest;
 import team.odds.mentor.service.ExpertiseService;
 
 import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/odds-api/v1/expertise")
+@RequiredArgsConstructor
 public class ExpertiseController {
     private final ExpertiseService expertiseService;
 
@@ -22,7 +22,7 @@ public class ExpertiseController {
     }
 
     @PostMapping()
-    public ResponseEntity<Expertise> addExpertise(@RequestBody ExpertiseRequestDto dataRequest) {
+    public ResponseEntity<Expertise> addExpertise(@RequestBody ExpertiseRequest dataRequest) {
         return ResponseEntity.status(HttpStatus.CREATED).body(expertiseService.addExpertise(dataRequest));
     }
 }
