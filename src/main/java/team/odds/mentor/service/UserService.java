@@ -29,9 +29,9 @@ public class UserService {
     private final EndorsementService endorsementService;
 
     public UserResponse getUser(String userId) {
-        var userRequest = userRepository.findById(userId)
+        var user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found with this id : " + userId));
-        return buildUserResponse(userRequest);
+        return buildUserResponse(user);
     }
 
     public List<UserResponseDto> getAllUsers() {
@@ -69,8 +69,8 @@ public class UserService {
     }
 
     public UserResponse buildUserResponse(User user) {
-        var expertiseListRes = expertiseRepository.findExpertiseBy(user.getExpertise());
-        var userExpertise = buildUserExpertise(user.getId(), expertiseListRes);
+        var expertiseList = expertiseRepository.findExpertiseBy(user.getExpertise());
+        var userExpertise = buildUserExpertise(user.getId(), expertiseList);
         int totalEndorsement = userExpertise.stream().mapToInt(UserResponse.Expertise::getEndorsed).sum();
         return UserResponse.builder()
                 .id(user.getId())
@@ -96,6 +96,6 @@ public class UserService {
                             .skill(item.getSkill())
                             .endorsed(endorsement)
                             .build();
-                }).collect(Collectors.toList());
+                }).toList();
     }
 }

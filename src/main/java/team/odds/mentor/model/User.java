@@ -7,13 +7,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDateTime;
 import java.util.List;
 
-
-@ToString
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
 @Document(collection = "users")
+@Data
+@Builder
 public class User {
     @Id
     private String id;
