@@ -10,6 +10,7 @@ import team.odds.mentor.model.Endorsement;
 @Repository
 @RequiredArgsConstructor
 public class EndorsementRepository {
+
     private final MongoTemplate mongoTemplate;
 
     public int countEndorsementByUserIdAndExpertiseId(String userId, String expertiseId) {
@@ -25,7 +26,7 @@ public class EndorsementRepository {
     }
 
     public Endorsement saveEndorsement(Endorsement endorsement) {
-        return mongoTemplate.save(endorsement);
+        return mongoTemplate.save(endorsement, "endorsement");
     }
-
+    
 }

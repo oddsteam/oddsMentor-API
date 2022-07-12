@@ -12,8 +12,8 @@ import team.odds.mentor.model.dto.EndorsementRequestDto;
 import team.odds.mentor.service.EndorsementService;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/odds-api/v1/endorsement")
+@RequiredArgsConstructor
 public class EndorsementController {
 
     private final EndorsementService endorsementService;
@@ -22,4 +22,5 @@ public class EndorsementController {
     public ResponseEntity<Endorsement> addEndorsement(@RequestBody EndorsementRequestDto dataRequest) {
         return ResponseEntity.status(HttpStatus.CREATED).body(endorsementService.addEndorsement(dataRequest));
     }
+
 }

@@ -22,4 +22,5 @@ public class BookingController {
     public ResponseEntity<Booking> addBooking(@RequestBody BookingDto dataRequest) {
         return ResponseEntity.status(HttpStatus.CREATED).body(bookingService.addBooking(dataRequest));
     }
+
 }

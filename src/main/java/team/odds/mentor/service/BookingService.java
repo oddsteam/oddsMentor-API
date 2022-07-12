@@ -22,4 +22,5 @@ public class BookingService {
         booking.setUpdatedAt(LocalDateTime.now());
         return bookingRepository.save(booking);
     }
+
 }

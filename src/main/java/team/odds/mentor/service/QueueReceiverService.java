@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import team.odds.mentor.repository.BookingRepository;
 import team.odds.mentor.repository.UserRepository;
 
-
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -33,5 +32,6 @@ public class QueueReceiverService {
         var isFail = mailSendinblueService.mailToUser(booking, mentor.get().getEmail());
         log.info("sending email {} with failed status {}", mentor.get().getEmail(), isFail);
     }
+
 }
 
