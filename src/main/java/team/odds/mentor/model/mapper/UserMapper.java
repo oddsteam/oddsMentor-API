@@ -12,7 +12,6 @@ public interface UserMapper {
     @Mapping(target = "expertise", ignore = true)
     User toUser(UserRequestDto userRequestDto);
 
-
     @Mapping(target = "expertise", ignore = true)
     @Mapping(target = "fullNameEN", expression = "java(user.getFirstNameEN() + \" \" + user.getLastNameEN())")
     @Mapping(target = "fullNameTH", expression = "java(user.getFirstNameTH() + \" \" + user.getLastNameTH())")

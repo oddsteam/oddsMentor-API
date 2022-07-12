@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import team.odds.mentor.model.UserResponse;
-import team.odds.mentor.model.dto.UserResponseDto;
 import team.odds.mentor.model.dto.UserRequestDto;
 import team.odds.mentor.service.UserService;
 
@@ -14,15 +13,13 @@ import team.odds.mentor.service.UserService;
 public class UserController {
     private final UserService userService;
 
-    @PostMapping()
-    public ResponseEntity<UserRequestDto> addUser(@RequestBody UserRequestDto dataRequest) {
-        return ResponseEntity.ok().body(userService.addUser(dataRequest));
-    }
+//    @PostMapping()
+//    public ResponseEntity<UserRequestDto> addUser(@RequestBody UserRequestDto dataRequest) {
+//        return ResponseEntity.ok().body(userService.addUser(dataRequest));
+//    }
 
     @GetMapping("/{userId}")
     public ResponseEntity<UserResponse> getUser(@PathVariable("userId") String userId) {
         return ResponseEntity.ok().body(userService.getUser(userId));
     }
-
-
 }

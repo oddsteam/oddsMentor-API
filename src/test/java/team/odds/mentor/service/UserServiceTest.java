@@ -1,10 +1,16 @@
 package team.odds.mentor.service;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import team.odds.mentor.model.Expertise;
 import team.odds.mentor.model.User;
 import team.odds.mentor.model.UserResponse;
 import team.odds.mentor.model.mapper.UserMapper;
+import team.odds.mentor.repository.EndorsementRepository;
 import team.odds.mentor.repository.ExpertiseRepository;
 import team.odds.mentor.repository.UserRepository;
 
@@ -16,15 +22,12 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
-    UserRepository userRepository = mock(UserRepository.class);
-    ExpertiseRepository expertiseRepository = mock(ExpertiseRepository.class);
-    UserMapper userMapper = mock(UserMapper.class);
-    ExpertiseService expertiseService = mock(ExpertiseService.class);
-    EndorsementService endorsementService = mock(EndorsementService.class);
-
-    UserService userService = new UserService(userRepository, expertiseRepository, userMapper, expertiseService, endorsementService);
-
+    @Mock private UserRepository userRepository;
+    @Mock private ExpertiseRepository expertiseRepository;
+    @Mock private EndorsementRepository endorsementRepository;
+    @InjectMocks private UserService userService;
     @Test
     void getUser() {
         //arrange
@@ -68,8 +71,8 @@ public class UserServiceTest {
 
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
         when(expertiseRepository.findExpertiseBy(user.getExpertise())).thenReturn(expertiseLists);
-        when(endorsementService.countEndorsementAsMentor(user.getId(),expertise1.getId())).thenReturn(10);
-        when(endorsementService.countEndorsementAsMentor(user.getId(),expertise2.getId())).thenReturn(20);
+        when(endorsementRepository.countEndorsementByUserIdAndExpertiseId(user.getId(),expertise1.getId())).thenReturn(10);
+        when(endorsementRepository.countEndorsementByUserIdAndExpertiseId(user.getId(),expertise2.getId())).thenReturn(20);
         //act
         var userResponse = userService.getUser(userId);
 
@@ -89,4 +92,6 @@ public class UserServiceTest {
         );
         assertThat(userResponse.getExpertise()).isEqualTo(userExpertiseList);
     }
+
+
 }

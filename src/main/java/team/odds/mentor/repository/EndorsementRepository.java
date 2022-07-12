@@ -1,15 +1,31 @@
 package team.odds.mentor.repository;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.Query;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 import team.odds.mentor.model.Endorsement;
 
-import java.util.List;
-
 @Repository
-public interface EndorsementRepository extends MongoRepository<Endorsement, String> {
+@RequiredArgsConstructor
+public class EndorsementRepository {
+    private final MongoTemplate mongoTemplate;
 
-    @Query(value = "{'endorsedMentorId' :  ?0 , 'expertiseId' :  ?1}")
-    List<Endorsement> findEndorsementBy(String userId, String expertiseId);
+    public int countEndorsementByUserIdAndExpertiseId(String userId, String expertiseId) {
+        Query query = new Query();
+        query.addCriteria(
+                Criteria.where("endorsedMentorId")
+                        .is(userId)
+                        .and("expertiseId")
+                        .is(expertiseId)
+        );
+        var countEndorsement = mongoTemplate.count(query, "expertise");
+        return Math.toIntExact(countEndorsement);
+    }
+
+    public Endorsement saveEndorsement(Endorsement endorsement) {
+        return mongoTemplate.save(endorsement);
+    }
+
 }

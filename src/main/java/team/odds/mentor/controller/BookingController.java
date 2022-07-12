@@ -11,7 +11,6 @@ import team.odds.mentor.model.Booking;
 import team.odds.mentor.model.dto.BookingDto;
 import team.odds.mentor.service.BookingService;
 
-
 @RestController
 @RequestMapping("/odds-api/v1/bookings")
 @RequiredArgsConstructor

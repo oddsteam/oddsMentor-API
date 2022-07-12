@@ -25,5 +25,4 @@ public class ExpertiseController {
     public ResponseEntity<Expertise> addExpertise(@RequestBody ExpertiseRequestDto dataRequest) {
         return ResponseEntity.status(HttpStatus.CREATED).body(expertiseService.addExpertise(dataRequest));
     }
-
 }

@@ -4,7 +4,9 @@ import lombok.*;
 
 import java.util.List;
 
-@Data
+@ToString
+@Getter
+@Setter
 public class UserRequestDto {
     private String firstNameEN;
     private String firstNameTH;
@@ -17,5 +19,13 @@ public class UserRequestDto {
     private String team;
     private String position;
     private String profileImageUrl;
-    private List<ExpertiseRequestDto> expertise;
+    private List<Expertise> expertise;
+
+    @ToString
+    @Getter
+    @Setter
+    public static class Expertise {
+        private String id;
+        private String skill;
+    }
 }

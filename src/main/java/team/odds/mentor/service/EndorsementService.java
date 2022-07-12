@@ -15,15 +15,10 @@ public class EndorsementService {
     private final EndorsementMapper endorsementMapper;
     private final EndorsementRepository endorsementRepository;
 
-    public int countEndorsementAsMentor(String userId, String expertiseId) {
-        var endorsementRef = endorsementRepository.findEndorsementBy(userId, expertiseId);
-        return endorsementRef.size();
-    }
-
     public Endorsement addEndorsement(EndorsementRequestDto dataRequest) {
         var endorsement = endorsementMapper.toEndorsement(dataRequest);
         endorsement.setCreatedAt(LocalDateTime.now());
         endorsement.setUpdatedAt(LocalDateTime.now());
-        return endorsementRepository.save(endorsement);
+        return endorsementRepository.saveEndorsement(endorsement);
     }
 }

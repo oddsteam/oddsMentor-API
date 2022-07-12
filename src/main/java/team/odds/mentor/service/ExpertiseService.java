@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import team.odds.mentor.model.Expertise;
 import team.odds.mentor.model.dto.ExpertiseRequestDto;
-import team.odds.mentor.model.dto.ExpertiseUserResponseDto;
 import team.odds.mentor.model.mapper.ExpertiseMapper;
 import team.odds.mentor.repository.ExpertiseRepository;
 
@@ -17,7 +16,6 @@ import java.util.List;
 public class ExpertiseService {
     private final ExpertiseRepository expertiseRepository;
     private final ExpertiseMapper expertiseMapper;
-    private final EndorsementService endorsementService;
 
     public List<Expertise> getExpertiseList() {
         return expertiseRepository.findAll();
@@ -42,18 +40,4 @@ public class ExpertiseService {
         });
         return expertiseIdList;
     }
-
-    public List<ExpertiseUserResponseDto> getUserExpertise(String userId, List<String> expertiseIdList) {
-        var response = expertiseRepository.findExpertiseBy(expertiseIdList);
-        List<ExpertiseUserResponseDto> expertiseUserResponseDtoList = new ArrayList<>();
-        response.forEach((expertise) -> {
-            var expertiseUserResponseDto = expertiseMapper.toExpertiseUserResponseDto(expertise);
-            int endorsement = endorsementService.countEndorsementAsMentor(userId, expertiseUserResponseDto.getId());
-            expertiseUserResponseDto.setEndorsed(endorsement);
-            expertiseUserResponseDtoList.add(expertiseUserResponseDto);
-        });
-
-        return expertiseUserResponseDtoList;
-    }
-
 }
