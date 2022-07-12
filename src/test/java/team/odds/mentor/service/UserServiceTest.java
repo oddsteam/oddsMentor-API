@@ -83,7 +83,7 @@ public class UserServiceTest {
     void getUser_shouldReturnUserResponse() {
         // Arrange
         when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
-        when(expertiseRepository.findExpertiseBy(user.getExpertise())).thenReturn(expertiseList);
+        when(expertiseRepository.findExpertiseByArrayId(user.getExpertise())).thenReturn(expertiseList);
         when(endorsementRepository.countEndorsementByUserIdAndExpertiseId(user.getId(),"11")).thenReturn(10);
         when(endorsementRepository.countEndorsementByUserIdAndExpertiseId(user.getId(),"12")).thenReturn(20);
         // Act

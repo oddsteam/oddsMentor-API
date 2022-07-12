@@ -20,7 +20,7 @@ public class EndorsementRepository {
                         .and("expertiseId")
                         .is(expertiseId)
         );
-        var countEndorsement = mongoTemplate.count(query, "expertise");
+        var countEndorsement = mongoTemplate.count(query, "endorsement");
         return Math.toIntExact(countEndorsement);
     }
 

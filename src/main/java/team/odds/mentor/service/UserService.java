@@ -5,17 +5,10 @@ import org.springframework.stereotype.Service;
 import team.odds.mentor.model.Expertise;
 import team.odds.mentor.model.User;
 import team.odds.mentor.model.UserResponse;
-import team.odds.mentor.model.dto.ExpertiseRequestDto;
-import team.odds.mentor.model.dto.ExpertiseUserResponseDto;
-import team.odds.mentor.model.dto.UserResponseDto;
-import team.odds.mentor.model.dto.UserRequestDto;
-import team.odds.mentor.model.mapper.UserMapper;
 import team.odds.mentor.repository.EndorsementRepository;
 import team.odds.mentor.repository.ExpertiseRepository;
 import team.odds.mentor.repository.UserRepository;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,8 +17,6 @@ public class UserService {
     private final UserRepository userRepository;
     private final ExpertiseRepository expertiseRepository;
     private final EndorsementRepository endorsementRepository;
-    private final UserMapper userMapper;
-    private final ExpertiseService expertiseService;
 
     public UserResponse getUser(String userId) {
         var user = userRepository.findById(userId)
@@ -52,7 +43,7 @@ public class UserService {
 //    }
 
     public UserResponse buildUserResponse(User user) {
-        var expertiseList = expertiseRepository.findExpertiseBy(user.getExpertise());
+        var expertiseList = expertiseRepository.findExpertiseByArrayId(user.getExpertise());
         var userExpertise = buildUserExpertise(user.getId(), expertiseList);
         int totalEndorsement = userExpertise.stream().mapToInt(UserResponse.Expertise::getEndorsed).sum();
         return UserResponse.builder()
