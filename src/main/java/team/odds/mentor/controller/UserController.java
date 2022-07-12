@@ -13,10 +13,11 @@ import team.odds.mentor.service.UserService;
 public class UserController {
     private final UserService userService;
 
-//    @PostMapping()
-//    public ResponseEntity<UserRequestDto> addUser(@RequestBody UserRequestDto dataRequest) {
-//        return ResponseEntity.ok().body(userService.addUser(dataRequest));
-//    }
+    @PutMapping("/userId")
+    public ResponseEntity<UserResponse> updateUser(@PathVariable("userId") String userId,
+                                                   @RequestBody UserRequestDto dataRequest) {
+        return ResponseEntity.ok().body(userService.updateUser(userId, dataRequest));
+    }
 
     @GetMapping("/{userId}")
     public ResponseEntity<UserResponse> getUser(@PathVariable("userId") String userId) {

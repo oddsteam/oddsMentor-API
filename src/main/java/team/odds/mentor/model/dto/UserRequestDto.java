@@ -14,6 +14,7 @@ public class UserRequestDto {
     private String lastNameTH;
     private String nickname;
     private String email;
+    private String type;
     private String accountType;
     private String biography;
     private String team;
