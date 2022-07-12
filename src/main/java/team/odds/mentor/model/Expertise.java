@@ -6,12 +6,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
-@ToString
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
 @Document(collection = "expertise")
+@Data
+@Builder
 public class Expertise {
     @Id
     private String id;

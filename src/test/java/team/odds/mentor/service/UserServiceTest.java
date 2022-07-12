@@ -31,26 +31,27 @@ public class UserServiceTest {
     @Test
     void getUser() {
         //arrange
+        var userExpertiseList = Arrays.asList(
+                UserResponse.Expertise.builder()
+                        .id("11")
+                        .skill("java")
+                        .endorsed(10)
+                        .build(),
+                UserResponse.Expertise.builder()
+                        .id("12")
+                        .skill("go")
+                        .endorsed(20)
+                        .build()
+        );
+        var expertiseIdList = userExpertiseList.stream().map(UserResponse.Expertise::getId).toList();
+        var expertiseList = userExpertiseList.stream().map(item->Expertise.builder()
+                .id(item.getId())
+                .skill(item.getSkill())
+                .createdAt(LocalDateTime.now())
+                .updatedAt(LocalDateTime.now())
+                .build()
+        ).toList();
         String userId = "1234";
-        var expertiseList = Arrays.asList(
-                "java",
-                "go",
-                "typescript");
-
-        var expertiseLists = new ArrayList<Expertise>();
-        var expertise1 = new Expertise();
-        expertise1.setId("11");
-        expertise1.setSkill("java");
-        expertise1.setCreatedAt(LocalDateTime.now());
-        expertise1.setUpdatedAt(LocalDateTime.now());
-        var expertise2 = new Expertise();
-        expertise2.setId("12");
-        expertise2.setSkill("go");
-        expertise2.setCreatedAt(LocalDateTime.now());
-        expertise2.setUpdatedAt(LocalDateTime.now());
-        expertiseLists.add(expertise1);
-        expertiseLists.add(expertise2);
-
         var user = User.builder()
                 .id("1234")
                 .firstNameEN("aiyaruch")
@@ -64,33 +65,20 @@ public class UserServiceTest {
                 .team("molamola")
                 .position("backend dev")
                 .profileImageUrl("gg")
-                .expertise(expertiseList)
+                .expertise(expertiseIdList)
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())
                 .build();
-
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
-        when(expertiseRepository.findExpertiseBy(user.getExpertise())).thenReturn(expertiseLists);
-        when(endorsementRepository.countEndorsementByUserIdAndExpertiseId(user.getId(),expertise1.getId())).thenReturn(10);
-        when(endorsementRepository.countEndorsementByUserIdAndExpertiseId(user.getId(),expertise2.getId())).thenReturn(20);
+        when(expertiseRepository.findExpertiseBy(user.getExpertise())).thenReturn(expertiseList);
+        when(endorsementRepository.countEndorsementByUserIdAndExpertiseId(user.getId(),"11")).thenReturn(10);
+        when(endorsementRepository.countEndorsementByUserIdAndExpertiseId(user.getId(),"12")).thenReturn(20);
         //act
         var userResponse = userService.getUser(userId);
-
         //assert
         assertThat(userResponse.getId()).isEqualTo("1234");
-        var userExpertiseList = Arrays.asList(
-                UserResponse.Expertise.builder()
-                        .id("11")
-                        .skill("java")
-                        .endorsed(10)
-                        .build(),
-                UserResponse.Expertise.builder()
-                        .id("12")
-                        .skill("go")
-                        .endorsed(20)
-                        .build()
-        );
         assertThat(userResponse.getExpertise()).isEqualTo(userExpertiseList);
+        assertThat(userResponse.getTotalEndorsed()).isEqualTo(30);
     }
 
 
