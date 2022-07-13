@@ -77,7 +77,7 @@ public class UserServiceTest {
             // Act
             userService.getUser("");
         } catch (RuntimeException exception) {
-            //Assert
+            // Assert
             assertThat(exception.getMessage()).isEqualTo(error.getMessage());
         }
     }
