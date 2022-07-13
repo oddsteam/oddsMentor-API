@@ -10,6 +10,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: password
       MONGO_INITDB_DATABASE: odds-mentor
     volumes:
+      - mongo-data:/data/db
       - ./mongo-entrypoint.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
     command: mongod
 
@@ -43,10 +44,8 @@ services:
       - odds-mentor-mongo-db
       - mentor-api
 
-
 volumes:
   mongo-data:
-    driver: local
 
       
 
