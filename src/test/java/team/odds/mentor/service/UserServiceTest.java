@@ -12,7 +12,6 @@ import team.odds.mentor.repository.EndorsementRepository;
 import team.odds.mentor.repository.ExpertiseRepository;
 import team.odds.mentor.repository.UserRepository;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Optional;
 
