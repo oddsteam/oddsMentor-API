@@ -49,8 +49,6 @@ public class UserServiceTest {
         var expertiseList = userExpertiseList.stream().map(item -> Expertise.builder()
                 .id(item.getId())
                 .skill(item.getSkill())
-                .createdAt(LocalDateTime.now())
-                .updatedAt(LocalDateTime.now())
                 .build()
         ).toList();
         var user = User.builder()
@@ -114,8 +112,6 @@ public class UserServiceTest {
         var expertiseList = userExpertiseList.stream().map(item -> Expertise.builder()
                 .id(item.getId())
                 .skill(item.getSkill())
-                .createdAt(LocalDateTime.now())
-                .updatedAt(LocalDateTime.now())
                 .build()
         ).toList();
         when(userRepository.findAll()).thenReturn(users);
