@@ -79,6 +79,8 @@ public class UserService {
                 .profileImageUrl(user.getProfileImageUrl())
                 .totalEndorsed(totalEndorsement)
                 .expertise(userExpertise)
+                .createdAt(user.getCreatedAt())
+                .updatedAt(user.getUpdatedAt())
                 .build();
     }
 

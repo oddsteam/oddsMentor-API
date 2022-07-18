@@ -3,6 +3,7 @@ package team.odds.mentor.model;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -19,6 +20,8 @@ public class UserResponse {
     private String profileImageUrl;
     private Integer totalEndorsed;
     private List<Expertise> expertise;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     @Data
     @Builder
