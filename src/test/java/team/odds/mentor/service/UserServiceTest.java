@@ -8,11 +8,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import team.odds.mentor.model.Expertise;
 import team.odds.mentor.model.User;
 import team.odds.mentor.model.UserResponse;
+import team.odds.mentor.model.dto.UserRequestDto;
+import team.odds.mentor.model.mapper.UserMapper;
 import team.odds.mentor.repository.EndorsementRepository;
 import team.odds.mentor.repository.ExpertiseRepository;
 import team.odds.mentor.repository.UserRepository;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -26,6 +29,8 @@ public class UserServiceTest {
     private ExpertiseRepository expertiseRepository;
     @Mock
     private EndorsementRepository endorsementRepository;
+    @Mock
+    private UserMapper userMapper;
     @InjectMocks
     private UserService userService;
 
@@ -129,4 +134,57 @@ public class UserServiceTest {
         assertThat(userResponse.get(0).getExpertise()).isEqualTo(userExpertiseList);
         assertThat(userResponse.get(0).getTotalEndorsed()).isEqualTo(30);
     }
+
+    @Test
+    void addUser_ShouldReturnUserResponse() {
+        // Arrange
+        var userExpertiseList = Arrays.asList(
+                UserResponse.Expertise.builder()
+                        .id("1")
+                        .skill("java")
+                        .endorsed(10)
+                        .build(),
+                UserResponse.Expertise.builder()
+                        .id("2")
+                        .skill("go")
+                        .endorsed(20)
+                        .build()
+        );
+        var expertiseUserReqArray = userExpertiseList.stream().map(item ->
+                UserRequestDto.Expertise.builder()
+                        .id(item.getId())
+                        .skill(item.getSkill())
+                        .build()
+        ).toList();
+        var expertiseList = expertiseUserReqArray.stream().map(item ->
+                Expertise.builder()
+                        .id(item.getId())
+                        .skill(item.getSkill())
+                        .build()
+        ).toList();
+        var userReq = UserRequestDto.builder()
+                .email("aa@aa.com")
+                .expertise(expertiseUserReqArray)
+                .build();
+        List<String> expertise = userExpertiseList.stream().map(UserResponse.Expertise::getId).toList();
+        var user = User.builder()
+                .id("123")
+                .expertise(expertise)
+                .build();
+
+        when(userMapper.toUser(userReq)).thenReturn(user);
+        when(userRepository.save(user)).thenReturn(user);
+        when(expertiseRepository.findExpertiseByIdList(user.getExpertise())).thenReturn(expertiseList);
+        when(endorsementRepository.countEndorsementByUserIdAndExpertiseId(user.getId(), userExpertiseList.get(0).getId()))
+                .thenReturn(userExpertiseList.get(0).getEndorsed());
+        when(endorsementRepository.countEndorsementByUserIdAndExpertiseId(user.getId(), userExpertiseList.get(1).getId()))
+                .thenReturn(userExpertiseList.get(1).getEndorsed());
+        //Act
+        var userResponse = userService.addUser(userReq);
+        //Assert
+        assertThat(userResponse.getId()).isEqualTo("123");
+        assertThat(userResponse.getExpertise()).isEqualTo(userExpertiseList);
+        assertThat(userResponse.getTotalEndorsed()).isEqualTo(30);
+    }
+
 }

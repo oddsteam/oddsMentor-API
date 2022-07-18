@@ -38,10 +38,23 @@ public class UserService {
                 .toList();
     }
 
+    public UserResponse addUser(UserRequestDto dataRequest) {
+        var userByEmail = userRepository.findByEmail(dataRequest.getEmail());
+        if (userByEmail.isPresent())
+            throw new RuntimeException("duplicate email");
+
+        var user = userMapper.toUser(dataRequest);
+        user.setExpertise(getExpertiseIdList(dataRequest.getExpertise()));
+        user.setCreatedAt(LocalDateTime.now());
+        user.setUpdatedAt(LocalDateTime.now());
+        var userRes = userRepository.save(user);
+        return buildUserResponse(userRes);
+    }
+
     public UserResponse updateUser(String userId, UserRequestDto dataRequest) {
         var userInfo = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found with this id : " + userId));
-        User user = userMapper.toUser(dataRequest);
+        var user = userMapper.toUser(dataRequest);
         user.setId(userInfo.getId());
         user.setExpertise(getExpertiseIdList(dataRequest.getExpertise()));
         user.setCreatedAt(userInfo.getCreatedAt());

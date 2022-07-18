@@ -1,6 +1,7 @@
 package team.odds.mentor.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import team.odds.mentor.model.UserResponse;
@@ -13,7 +14,7 @@ import team.odds.mentor.service.UserService;
 public class UserController {
     private final UserService userService;
 
-    @PutMapping("/userId")
+    @PutMapping("/{userId}")
     public ResponseEntity<UserResponse> updateUser(@PathVariable("userId") String userId,
                                                    @RequestBody UserRequestDto dataRequest) {
         return ResponseEntity.ok().body(userService.updateUser(userId, dataRequest));
@@ -22,5 +23,10 @@ public class UserController {
     @GetMapping("/{userId}")
     public ResponseEntity<UserResponse> getUser(@PathVariable("userId") String userId) {
         return ResponseEntity.ok().body(userService.getUser(userId));
+    }
+
+    @PostMapping("/")
+    public ResponseEntity<UserResponse> addUser(@RequestBody UserRequestDto dataRequest){
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.addUser(dataRequest));
     }
 }
