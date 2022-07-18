@@ -12,7 +12,9 @@ import team.odds.mentor.util.HelpersUtil;
 
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
@@ -50,4 +52,14 @@ public class ExpertiseRepository {
                                 .build(), "expertise");
     }
 
+    public Map<String, String> removeExpertise(String expertiseId) {
+        Query query = new Query();
+        query.addCriteria(
+                Criteria.where("_id").is(expertiseId)
+        );
+        mongoTemplate.remove(query, "expertise");
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "deleted successfully");
+        return response;
+    }
 }

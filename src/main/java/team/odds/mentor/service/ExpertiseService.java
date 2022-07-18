@@ -6,8 +6,8 @@ import team.odds.mentor.model.Expertise;
 import team.odds.mentor.model.ExpertiseRequest;
 import team.odds.mentor.repository.ExpertiseRepository;
 
-import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -22,4 +22,7 @@ public class ExpertiseService {
         return expertiseRepository.save(dataRequest);
     }
 
+    public Map<String, String> removeExpertise(String expertiseId) {
+        return expertiseRepository.removeExpertise(expertiseId);
+    }
 }

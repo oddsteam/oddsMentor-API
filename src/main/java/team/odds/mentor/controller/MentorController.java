@@ -19,5 +19,4 @@ public class MentorController {
     public ResponseEntity<List<UserResponse>> getMentorList() {
         return ResponseEntity.ok().body(userService.getUserList());
     }
-
 }

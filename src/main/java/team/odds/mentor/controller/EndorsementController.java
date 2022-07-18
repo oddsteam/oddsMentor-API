@@ -22,5 +22,4 @@ public class EndorsementController {
     public ResponseEntity<Endorsement> addEndorsement(@RequestBody EndorsementRequestDto dataRequest) {
         return ResponseEntity.status(HttpStatus.CREATED).body(endorsementService.addEndorsement(dataRequest));
     }
-
 }

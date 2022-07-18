@@ -1,5 +1,6 @@
 package team.odds.mentor.repository;
 
+import com.mongodb.client.result.DeleteResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -28,5 +29,4 @@ public class EndorsementRepository {
     public Endorsement saveEndorsement(Endorsement endorsement) {
         return mongoTemplate.save(endorsement, "endorsement");
     }
-    
 }
