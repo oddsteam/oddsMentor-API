@@ -12,15 +12,22 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-public class UserRepository{
+public class UserRepository {
 
     private final MongoTemplate mongoTemplate;
+
     public Optional<User> findById(String userId) {
         return Optional.ofNullable(mongoTemplate.findById(userId, User.class, "users"));
     }
+
     public List<User> findAll() {
         return mongoTemplate.findAll(User.class, "users");
     }
+
+    public List<User> findUserByLimit(Integer limit) {
+        return mongoTemplate.find(new Query().limit(limit!=null?limit:4), User.class);
+    }
+
     public Optional<User> findByEmail(String email) {
         Query query = new Query();
         query.addCriteria(
@@ -28,7 +35,8 @@ public class UserRepository{
                         .is(email));
         return Optional.ofNullable(mongoTemplate.findOne(query, User.class));
     }
+
     public User save(User user) {
-        return mongoTemplate.save(user,"users");
+        return mongoTemplate.save(user, "users");
     }
 }

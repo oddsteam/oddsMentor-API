@@ -38,6 +38,13 @@ public class UserService {
                 .toList();
     }
 
+    public List<UserResponse> getUserByLimit(Integer limit) {
+        List<User> users = userRepository.findUserByLimit(limit);
+        return users.stream()
+                .map(this::buildUserResponse)
+                .toList();
+    }
+
     public UserResponse addUser(UserRequestDto dataRequest) {
         var userByEmail = userRepository.findByEmail(dataRequest.getEmail());
         if (userByEmail.isPresent())

@@ -19,4 +19,8 @@ public class MentorController {
     public ResponseEntity<List<UserResponse>> getMentorList() {
         return ResponseEntity.ok().body(userService.getUserList());
     }
+    @GetMapping("/top")
+    public ResponseEntity<List<UserResponse>> getMentorTopList(@RequestParam(name = "limit",required = false) Integer limit) {
+        return ResponseEntity.ok().body(userService.getUserByLimit(limit));
+    }
 }
